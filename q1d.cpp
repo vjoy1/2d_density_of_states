@@ -1,9 +1,28 @@
-#include "../helper_functions.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>
 #include <fstream>
 #include <cstdlib>
+
+std::vector<std::array<int, 4>> createNeighbourList(int n) {
+    int N = n * n; 
+    std::vector<std::array<int, 4>> neighbours(N); 
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            int idx = i * n + j; 
+
+            // neighbour indices
+            int right = i * n + (j + 1) % n;
+            int left = i * n + (j - 1 + n) % n;
+            int below = ((i + 1) % n) * n + j;
+            int above = ((i - 1 + n) % n) * n + j;
+
+            neighbours[idx] = {right, left, below, above};
+        }
+    }
+    return neighbours;
+}
 
 int main(int argc, char* argv[]){
     int n = 2;
